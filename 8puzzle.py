@@ -1,6 +1,7 @@
 import copy
 
 done = []
+queue = []
 
 class TreeNode:
     def __init__(self, data) -> None:
@@ -71,8 +72,15 @@ class TreeNode:
     def expand(self, goal):
         pass
 
-    def BFS(self):
-         pass   
+    def BFS(self, goal):
+        if done or self.data in done
+        if is_goal(goal):
+            return self.data
+        done.append(self.data)
+        self.branches.gen_branches()
+        for b in branches:
+            queue.append(b)
+
 
 
 
