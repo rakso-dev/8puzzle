@@ -90,3 +90,8 @@ root.gen_branches()
 print(root.data)
 for l in root.branches:
     print(l.data)
+
+r = []
+for i in range(10):
+    r.insert(0, i)
+print(r)        
