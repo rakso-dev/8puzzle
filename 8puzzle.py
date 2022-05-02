@@ -1,7 +1,12 @@
+import copy
+
 class TreeNode:
     def __init__(self, data) -> None:
         self.data = data
         self.branches = []
+
+    def is_goal(self, goal):
+        return self.data == goal
 
     def get_position(self):
         count = 0
@@ -16,17 +21,50 @@ class TreeNode:
             count += 1
         return pos_x, pos_y         
     
-    def move_up(self):
-        pass
+    def move_up(self, pos_x, pos_y):
+        if pos_x == 0:
+            return None
+        branch = copy.deepcopy(self.data)
+        tmp = branch[pos_x - 1][pos_y]
+        branch[pos_x - 1][pos_y] = "_"
+        branch[pos_x][pos_y] = tmp
+        self.branches.append(TreeNode(branch))
 
-    def move_right(self):
-        pass
+    def move_right(self, pos_x, pos_y):
+        if pos_y == 2:
+            return None
+        branch = copy.deepcopy(self.data)
+        tmp = branch[pos_x][pos_y + 1]
+        branch[pos_x][pos_y + 1] = "_"
+        branch[pos_x][pos_y] = tmp
+        self.branches.append(TreeNode(branch))
 
-    def move_down(self):
-        pass
+    def move_down(self, pos_x, pos_y):
+        if pos_x == 2:
+            return None
+        branch = copy.deepcopy(self.data)
+        tmp = branch[pos_x + 1][pos_y]
+        branch[pos_x + 1][pos_y] = "_"
+        branch[pos_x][pos_y] = tmp
+        self.branches.append(TreeNode(branch))
 
-    def move_left(self):
-        pass
+    def move_left(self, pos_x, pos_y):
+        if pos_y == 0:
+            return None
+        branch = copy.deepcopy(self.data)
+        tmp = branch[pos_x][pos_y - 1]
+        branch[pos_x][pos_y - 1] = "_"
+        branch[pos_x][pos_y] = tmp
+        self.branches.append(TreeNode(branch))
+
+    def gen_branches(self):
+        pos_x, pos_y = self.get_position()
+        if pos_x == -1:
+            return None
+        self.move_up(pos_x, pos_y)
+        self.move_right(pos_x, pos_y)
+        self.move_down(pos_x, pos_y)
+        self.move_left(pos_x, pos_y)        
 
 
 
@@ -42,3 +80,8 @@ test_state = [
     [7, 3 , 2]
 ]
 
+root = TreeNode(test_state)
+root.gen_branches()
+print(root.data)
+for l in root.branches:
+    print(l.data)
