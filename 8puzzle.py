@@ -1,5 +1,7 @@
 import copy
 
+done = []
+
 class TreeNode:
     def __init__(self, data) -> None:
         self.data = data
@@ -65,6 +67,9 @@ class TreeNode:
         self.move_right(pos_x, pos_y)
         self.move_down(pos_x, pos_y)
         self.move_left(pos_x, pos_y)        
+
+    def BFS(self):
+         pass   
 
 
 
