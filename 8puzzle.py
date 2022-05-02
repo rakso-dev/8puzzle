@@ -68,6 +68,9 @@ class TreeNode:
         self.move_down(pos_x, pos_y)
         self.move_left(pos_x, pos_y)        
 
+    def expand(self, goal):
+        pass
+
     def BFS(self):
          pass   
 
@@ -91,7 +94,3 @@ print(root.data)
 for l in root.branches:
     print(l.data)
 
-r = []
-for i in range(10):
-    r.insert(0, i)
-print(r)        
