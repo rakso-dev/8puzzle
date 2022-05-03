@@ -69,17 +69,18 @@ class TreeNode:
         self.move_down(pos_x, pos_y)
         self.move_left(pos_x, pos_y)        
 
-    def expand(self, goal):
-        pass
+    def expand(self):
+        if self.data in done:
+            return
+        self.expand()    
 
     def BFS(self, goal):
-        if done or self.data in done
+        queue.append(self)
         if is_goal(goal):
             return self.data
         done.append(self.data)
-        self.branches.gen_branches()
-        for b in branches:
-            queue.append(b)
+        
+
 
 
 
@@ -101,4 +102,5 @@ root.gen_branches()
 print(root.data)
 for l in root.branches:
     print(l.data)
+
 
