@@ -2,7 +2,6 @@ import copy
 
 done = []
 queue = []
-conf_git = "I just do this cause i'm using git on a new system and dont remember how to configure it lol"
 
 class TreeNode:
     def __init__(self, data) -> None:
