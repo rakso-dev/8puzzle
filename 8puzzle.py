@@ -1,7 +1,7 @@
 import copy
 
 done = []
-
+way = []
 class TreeNode:
     def __init__(self, data) -> None:
         self.data = data
@@ -68,6 +68,20 @@ class TreeNode:
         self.move_down(pos_x, pos_y)
         self.move_left(pos_x, pos_y)        
 
+    def DFS(self, goal):
+        if self.is_goal(goal):
+            way.append(self.data)
+            return True
+        if self.data in done:
+            return False
+        done.append(self.data)
+        self.gen_branches()
+        for branch in self.branches:
+            if branch.DFS(goal):
+                way.append(self.data)
+                return True
+        return False
+
     def BFS(self):
          pass   
 
@@ -86,12 +100,13 @@ test_state = [
 ]
 
 root = TreeNode(test_state)
-root.gen_branches()
-print(root.data)
-for l in root.branches:
-    print(l.data)
-
-r = []
-for i in range(10):
-    r.insert(0, i)
-print(r)        
+#root.gen_branches()
+#print(root.data)
+#for l in root.branches:
+#    print(l.data)
+#
+#r = []
+#for i in range(10):
+#    r.insert(0, i)
+#print(r)        
+#root.DFS(goal)
