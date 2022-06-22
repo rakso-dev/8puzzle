@@ -73,7 +73,6 @@ class TreeNode:
         self.move_down(pos_x, pos_y)
         self.move_left(pos_x, pos_y)        
 
-<<<<<<< HEAD
     def DFS(self, goal):
         if self.is_goal(goal):
             way.append(self.data)
@@ -90,21 +89,6 @@ class TreeNode:
 
     def BFS(self):
          pass   
-=======
-    def expand(self):
-        if self.data in done:
-            return
-        self.expand()    
-
-    def BFS(self, goal):
-        queue.append(self)
-        if is_goal(goal):
-            return self.data
-        done.append(self.data)
-        
-
-
->>>>>>> ae9724fae8f8345215f3702532704795f1fbce35
 
 
 
