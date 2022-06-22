@@ -1,12 +1,7 @@
 import copy
 
 done = []
-<<<<<<< HEAD
 way = []
-=======
-queue = []
-
->>>>>>> ae9724fae8f8345215f3702532704795f1fbce35
 class TreeNode:
     def __init__(self, data) -> None:
         self.data = data
