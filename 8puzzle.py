@@ -100,7 +100,6 @@ test_state = [
 ]
 
 root = TreeNode(test_state)
-<<<<<<< HEAD
 #root.gen_branches()
 #print(root.data)
 #for l in root.branches:
@@ -111,11 +110,9 @@ root = TreeNode(test_state)
 #    r.insert(0, i)
 #print(r)        
 #root.DFS(goal)
-=======
 root.gen_branches()
 print(root.data)
 for l in root.branches:
     print(l.data)
 
 
->>>>>>> ae9724fae8f8345215f3702532704795f1fbce35
