@@ -61,18 +61,26 @@ class TreeNode:
 
     def gen_branches(self):
         pos_x, pos_y = self.get_position()
-        if pos_x == -1:
+        if pos_x == -1 or pos_y == -1:
             return None
         self.move_up(pos_x, pos_y)
         self.move_right(pos_x, pos_y)
         self.move_down(pos_x, pos_y)
         self.move_left(pos_x, pos_y)        
+    
+    def is_done(self):
+        for element in done:
+            if element == self.data:
+                return True
+        return False
 
     def DFS(self, goal):
+        if not self.data:
+            return False
         if self.is_goal(goal):
             way.append(self.data)
             return True
-        if self.data in done:
+        if self.is_done():#self.data in done:
             return False
         done.append(self.data)
         self.gen_branches()
@@ -99,6 +107,11 @@ test_state = [
     [7, 3 , 2]
 ]
 
+test_state2 = goal = [
+    [1, 2, "_"],
+    [8, 3, 4],
+    [7, 6, 5]
+]
 root = TreeNode(test_state)
 #root.gen_branches()
 #print(root.data)
@@ -109,10 +122,8 @@ root = TreeNode(test_state)
 #for i in range(10):
 #    r.insert(0, i)
 #print(r)        
-#root.DFS(goal)
-root.gen_branches()
-print(root.data)
-for l in root.branches:
-    print(l.data)
+root.DFS(goal)
+for l in way:
+    print(l)
 
 
