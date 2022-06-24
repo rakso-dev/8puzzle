@@ -58,24 +58,27 @@ class TreeNode:
 
     def DFS(self, goal):
         if not self.pos:
-            return False
+            return None
         if self.pos in done:
-            return False
+            return None
+        output = []
         if self.is_goal(goal):
-            way.append(self.pos)
-            return True
+            output.append(self.pos)
+            return output
         done.append(self.pos)
         self.expand()
         for branch in self.branches:
-            if branch.DFS(goal):
-                way.append(self.pos)
-                return True
-        return False
+            tmp = branch.DFS(goal)
+            if tmp:# and not (tmp == []):
+                output.append(self.pos)
+                output.extend(tmp)
+                return output
+        return output
 
 
 root = TreeNode([928, 512])
-root.DFS([352, 192])
-
+way = root.DFS([352, 192])
+way.reverse()
 print(way)
 for e in way:
     print(e)
