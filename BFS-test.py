@@ -43,16 +43,24 @@ connections = {
 
 class TreeNode:
 
-	def __init__(self, pos) -> None:
+	def __init__(self, pos, parent) -> None:
 		self.pos = tuple(pos)
+		self.parent = parent
 		self.branches = []
 
 	def expand(self):
 		for turn in connections[self.pos]:
-			self.branches.append(TreeNode(turn))
+			self.branches.append(TreeNode(turn, self))
 
 	def is_goal(self, goal):
 		return self.pos == tuple(goal)
+
+	def get_way(self):
+		if not self.parent:
+			return [self.pos]
+		way = [self.pos]
+		way.extend(self.parent.get_way())
+		return way
 
 	def BFS(self, goal):
 		queue = []
@@ -60,22 +68,16 @@ class TreeNode:
 		queue.append(self)
 		for element in queue:
 			if element.is_goal(goal):
-				#queue.append(element)
-				print(element.pos)
-				print(f"i'm after {queue[queue.index(element) - 1].pos}")
-				return queue
+				return element.get_way()
 			visited.append(element.pos)
 			element.expand()
 			for branch in element.branches:
 				if not branch.pos in visited:
 					queue.append(branch)
-				#queue.append(branch)
-			#queue.remove(element)
-		pass
 
-root = TreeNode([928, 512])
+root = TreeNode([928, 96], None)
 way = root.BFS([352, 192])
-#way.reverse()
+way.reverse()
 #print(way)
 for e in way:
-    print(e.pos)
+    print(e)
