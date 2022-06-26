@@ -1,4 +1,3 @@
-done = []
 
 #graph nodes
 turns = [[96,96], #0
@@ -43,40 +42,40 @@ connections = {
 }
 
 class TreeNode:
-    
-    def __init__(self, pos) -> None:
-        self.pos = tuple(pos)
-        self.branches = []
 
-    def expand(self):
-        for item in connections[self.pos]:
-            self.branches.append(TreeNode(item))
+	def __init__(self, pos) -> None:
+		self.pos = tuple(pos)
+		self.branches = []
 
-    def is_goal(self, goal):
-        return self.pos == tuple(goal)
+	def expand(self):
+		for turn in connections[self.pos]:
+			self.branches.append(TreeNode(turn))
 
-    def DFS(self, goal):
-        if not self.pos:
-            return None
-        if self.pos in done:
-            return None
-        output = []
-        if self.is_goal(goal):
-            output.append(self.pos)
-            return output
-        done.append(self.pos)
-        self.expand()
-        for branch in self.branches:
-            tmp = branch.DFS(goal)
-            if tmp:# and not (tmp == []):
-                output.append(self.pos)
-                output.extend(tmp)
-                return output
-        return output
+	def is_goal(self, goal):
+		return self.pos == tuple(goal)
+
+	def BFS(self, goal):
+		queue = []
+		visited = []
+		queue.append(self)
+		for element in queue:
+			if element.is_goal(goal):
+				#queue.append(element)
+				print(element.pos)
+				print(f"i'm after {queue[queue.index(element) - 1].pos}")
+				return queue
+			visited.append(element.pos)
+			element.expand()
+			for branch in element.branches:
+				if not branch.pos in visited:
+					queue.append(branch)
+				#queue.append(branch)
+			#queue.remove(element)
+		pass
 
 root = TreeNode([928, 512])
-way = root.DFS([352, 192])
-way.reverse()
-print(way)
+way = root.BFS([352, 192])
+#way.reverse()
+#print(way)
 for e in way:
-    print(e)
+    print(e.pos)
