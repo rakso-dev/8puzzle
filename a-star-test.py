@@ -45,5 +45,38 @@ class TreeNode:
     #creo que se puede hacer usando la distancia entre dos puntos, uno hacia atras y otro hacia la meta, solo hay que tomar en cuenta
     #que debe ser capaz de revisar los demas nodos y asi
     #pero para la deificion creo que funciona
-    pass
+    def __init__(self, pos, goal, parent):
+        self.pos = tuple(pos)
+        self.goal = tuple(goal)
+        self.parent = parent
+        if parent:
+            self.distance = self.get_distance(parent.pos)
+            self.cost = parent.cost
+        else:
+            self.distance = 0
+            self.cost = 0
+        self.heuristics = self.get_distance(self.goal)
+        self.cost += self.distance + self.heuristics
+        self.branches = []
+    
+    def get_distance(self, point):
+        x = (point[0] - self.pos[0]) ** 2
+        y = (point[1] - self.pos[1]) ** 2
+        return (x + y) ** 0.5
 
+    def expand(self):
+        for item in connections[self.pos]:
+            self.branches.append(item)
+    
+    def get_way(self):
+        if not self.parent:
+            return [self.pos]
+        way = [self.pos]
+        way.extend(parent.get_way())
+        return way
+
+    def a_star(self):
+        pass
+
+root = TreeNode([928, 512], [352,192], None)
+way = root.a_star()
