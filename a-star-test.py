@@ -66,17 +66,42 @@ class TreeNode:
 
     def expand(self):
         for item in connections[self.pos]:
-            self.branches.append(item)
+            self.branches.append(TreeNode(item, self.goal, self))
     
     def get_way(self):
         if not self.parent:
             return [self.pos]
         way = [self.pos]
-        way.extend(parent.get_way())
+        way.extend(self.parent.get_way())
         return way
 
     def a_star(self):
-        pass
+        current = []
+        done = []
+        cheapest = None
+        current.append(self)
+        while (len(current) != 0):
+            for item in current:
+                if item.pos == self.goal:
+                    if not cheapest:
+                        cheapest = item
+                    elif cheapest.cost > item.cost:
+                        cheapest = item
+                    continue
+                item.expand()
+                for branch in item.branches:
+                    current.append(branch)
+                done.append(item)
+                current.remove(item)
+            if cheapest:
+                flag =  False
+                for item in current:
+                    if not (item == cheapest) and item.cost < cheapest.cost:
+                        flag = True
+                if flag == False:
+                    break
+        return cheapest.way()
 
-root = TreeNode([928, 512], [352,192], None)
+root = TreeNode([928, 96], [352, 192], None)
 way = root.a_star()
+print(way)
